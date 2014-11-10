@@ -1,0 +1,113 @@
+public class SuperArray{
+    Object[] array;
+    int length;
+    
+    public SuperArray(){
+	length = 10;
+	array = new Object[10];
+    }
+    
+    public SuperArray(int x){
+	length = x;
+	array = new Object[length];
+    }
+    
+    public String toString(){
+	String ans = "[ ";
+	for (int i = 0; i < this.length; i++){
+	    ans+= array[i];
+	}
+	ans += " ]";
+	return ans;
+    }
+    
+    public Object get(int index){
+	if (index < 0 || index >= this.size()){
+	    System.out.println("out of range");
+	    return null;
+	}else
+	    return array[index];
+    }
+ 
+    
+   public void add(Object e){
+	if (array[length-1] != null){
+	    length += 1;
+	    resize(length);
+	    array[length-1] = e;
+	}
+	else{
+	    for (int i = array.length - 1; i > 0; i--){
+		if (array[i] == null){
+		    array[i] = e;
+		}
+	    }
+	}
+   }
+
+
+    public void add(int index, Object o){
+	if (array[length-1] == null){
+	    if (index == length - 1){
+		array[index] = o;
+	    }
+	    for(int i = length - 1; i-1 > index; i--){
+		array[i] = array[i-1];
+	    }
+	    array[index] = o;
+	}else{
+	    length += 1;
+	    resize(length);
+	    add(index,o);
+    }
+    }    
+    
+    public Object set(int index, Object o){
+	Object x = array[index];
+	array[index] = o;
+	return x;
+    }
+
+    public int size(){
+	int ans = 0;
+	for (int i = 0; i < this.length; i++){
+	    ans++;
+	}
+	return ans;
+    }
+
+    public void resize(int newCapacity){
+	length = newCapacity;
+	Object[] newArray = new Object[newCapacity];
+	for (int i=0; i <this.length; i++){
+	    newArray[i] = this.get(i);
+	}
+	array = newArray;
+    }
+    
+    public void clear(){
+	Object[] newArray = new Object[length];
+	for (int i = 0; i < this.length; i++){
+	    newArray[i] = null;
+	}
+	array = newArray;
+    }
+    
+    public Object remove(int index){
+	if (index >= length || index < 0){
+	    System.out.println("Index out of range");
+	}
+	Object x = array[index];
+	array[index] = null;
+	for (int i = index; i+1 < length; i++){
+	    array[i] = array[i+1];
+	}
+	length -= 1;
+	resize(length);
+	return x;
+    }
+		
+	    
+	    
+    
+}
