@@ -15,16 +15,26 @@ public class SuperArray{
     public String toString(){
 	String ans = "[ ";
 	for (int i = 0; i < this.length; i++){
-	    ans+= array[i];
+	    ans+= array[i] + " ";
 	}
-	ans += " ]";
+	ans += "]";
 	return ans;
     }
     
+    public String toString2(){
+	String ans = "[ ";
+	for (int i = 0; i < this.length; i++){
+	    if (array[i] != null){
+		ans+= array[i] + " ";
+	    }
+	}
+	ans += "]";
+	return ans;
+    }
+		   
     public Object get(int index){
 	if (index < 0 || index >= this.size()){
-	    System.out.println("out of range");
-	    return null;
+	    throw new IndexOutOfBoundsException();
 	}else
 	    return array[index];
     }
@@ -37,9 +47,10 @@ public class SuperArray{
 	    array[length-1] = e;
 	}
 	else{
-	    for (int i = array.length - 1; i > 0; i--){
+	    for (int i = 0; i < array.length; i++){
 		if (array[i] == null){
 		    array[i] = e;
+		    i += length;
 		}
 	    }
 	}
@@ -47,21 +58,39 @@ public class SuperArray{
 
 
     public void add(int index, Object o){
-	if (array[length-1] == null){
-	    if (index == length - 1){
-		array[index] = o;
+	int x = index;
+	int y = 0;
+	Object[] newArray = new Object[length];
+	if (array[length-1] != null){
+	    length++;
+	    newArray = new Object[length];
+	    newArray[index] = o;
+	    while (y < index){
+		newArray[y] = array[y];
+		y++;
 	    }
-	    for(int i = length - 1; i-1 > index; i--){
-		array[i] = array[i-1];
+	    while (x < length-1){
+		newArray[x+1] = array[x];
+		x++;
 	    }
-	    array[index] = o;
+	    array = newArray;
 	}else{
-	    length += 1;
-	    resize(length);
-	    add(index,o);
+	    newArray[index] = o;
+	    while (y < index){
+		newArray[y] = array[y];
+		y++;
+	    }
+	    while (x < length-1){
+		newArray[x+1] = array[x];
+		x++;
+	    }
+	    array = newArray;
+	}
     }
-    }    
-    
+	    
+		
+	    
+	    
     public Object set(int index, Object o){
 	Object x = array[index];
 	array[index] = o;
@@ -77,11 +106,11 @@ public class SuperArray{
     }
 
     public void resize(int newCapacity){
-	length = newCapacity;
 	Object[] newArray = new Object[newCapacity];
-	for (int i=0; i <this.length; i++){
+	for (int i = 0; i < this.length; i++){
 	    newArray[i] = this.get(i);
 	}
+	length = newCapacity;
 	array = newArray;
     }
     
@@ -111,3 +140,5 @@ public class SuperArray{
 	    
     
 }
+
+    
