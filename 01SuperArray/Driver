@@ -1,0 +1,27 @@
+public class Driver{
+    
+    public static void main(String[]args){
+	SuperArray a = new SuperArray();
+	a.array[0] = (new Integer(1));
+	a.array[1] = (new Integer(2));
+	a.array[2] = (new Integer(3));
+	a.array[3] = (new Integer(4));
+	a.array[4] = (new Integer(5));
+	
+	try{
+	    System.out.println(a.toString());
+	    a.add(9,new Integer(10));
+	    System.out.println(a.toString());
+	    System.out.println(a.toString2());
+	    System.out.println(a.remove(1));
+	    System.out.print(a.toString());
+	    //	System.out.println(a.size());
+	    //	a.resize(5);
+	    //	a.clear();
+	    //	System.out.println(a);
+	}catch(IndexOutOfBoundsException e){
+	    System.out.println("Ya done goffed");
+	}
+    }
+
+}
