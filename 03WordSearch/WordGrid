@@ -11,13 +11,37 @@ public class WordGrid{
      */
     
     public WordGrid(int rows,int cols){
-	char[] row = new char[rows];
+	char[][] grid  = new char[rows][cols];
 	int x = 0;
-	while (
+	int y = 0;
+	while(x < rows){
+	    while(y < cols){
+		grid[x][y] = 'c';
+		y++;
+	    }
+	    y = 0;
+	    x++;
+	}
+	data = grid;
     }
+	    
+	
+    
 
     /**Set all values in the WordGrid to spaces ' '*/
-    private void clear(){
+    public void clear(){
+	int rows = data.length;
+	int cols = data[0].length;
+	int x = 0;
+	int y = 0;
+	while (x < rows){
+	    while(y < cols){
+		data[x][y] = ' ';
+		y++;
+	    }
+	    y = 0;
+	    x++;
+	}
     }
 
     /**The proper formatting for a WordGrid is created in the toString.
@@ -25,6 +49,22 @@ public class WordGrid{
      *separated by newlines.
      */
     public String toString(){
+	int rows = data.length;
+	int cols = data[0].length;
+	String ans = "";
+	int x = 0;
+	int y = 0;
+	while(x < rows){
+	    while(y < cols){
+		ans += data[x][y] + " ";
+		y++;
+	    }
+	    y = 0;
+	    x++;
+	    ans += "\n";
+	}
+	return ans;
+	
     }
 
     /**Attempts to add a given word to the specified position of the WordGrid.
@@ -37,12 +77,20 @@ public class WordGrid{
      *@return true when the word is added successfully. When the word doesn't fit,
      *or there are overlapping letters that do not match, then false is returned.
      */
+    
     public boolean addWordHorizontal(String word,int row, int col){
+	int rowLength = data[0].length;
+	if (word.length() > rowLength - col && word.length() > rowLength - (row:ength - col)){
+	    return false;
+	}
+	if (word.length() < rowLength - col && word.length() > 
+	Random rand = new Random();
+	int x = rand.nextInt(1);
+	if (rand.nextInt
+	    
     }
 
     //vertical + diagonal should be implemented as well.
 
 
-
 }
-
