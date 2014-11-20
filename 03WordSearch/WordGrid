@@ -24,6 +24,11 @@ public class WordGrid{
 	}
 	data = grid;
     }
+
+    public WordGrid(){
+	this(10,10);
+    }
+
 	    
 	
     
@@ -78,8 +83,8 @@ public class WordGrid{
      *or there are overlapping letters that do not match, then false is returned.
      */
     
-    public boolean addWordHorizontal(String word,int row, int col){
-	int rowLength = data[0].length;
+    /* public boolean addWordHorizontal(String word,int row, int col){
+       	int rowLength = data[0].length;
 	if (word.length() > rowLength - col && word.length() > rowLength - (row:ength - col)){
 	    return false;
 	}
@@ -89,6 +94,42 @@ public class WordGrid{
 	if (rand.nextInt
 	    
     }
+	*/
+    public boolean addWordHorizontal(String word, int row, int col){
+	int rowLength = data[0].length;
+	if (word.length() > rowLength){
+	    return false;
+	}
+	if (rowLength - col > word.length()){
+	    int x = col - 1;
+	    for (int i = 0; i < word.length(); i++){
+		data[row-1][x] = word.charAt(i);
+		x++;
+	    }
+	}
+	return true;
+    }
+
+    public boolean addWordVertical(String word, int row, int col){
+	int colLength = data.length;
+	if (word.length() > colLength){
+	    return false;
+	}
+	if (colLength - row > word.length()){
+	    int x = row - 1;
+	    for (int i = 0; i < word.length(); i++){
+		data[x][col-1] = word.charAt(x);
+		x++;
+	    }
+	}
+	return true;
+    }
+    
+    public boolean addWordDiagonal(String word, int row, int col){
+	boolean diagFit = word.length()  
+	return true;
+    }
+
 
     //vertical + diagonal should be implemented as well.
 
