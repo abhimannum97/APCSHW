@@ -16,7 +16,7 @@ public class WordGrid{
 	int y = 0;
 	while(x < rows){
 	    while(y < cols){
-		grid[x][y] = 'c';
+		grid[x][y] = ' ';
 		y++;
 	    }
 	    y = 0;
@@ -82,56 +82,58 @@ public class WordGrid{
      *@return true when the word is added successfully. When the word doesn't fit,
      *or there are overlapping letters that do not match, then false is returned.
      */
-    
-    /* public boolean addWordHorizontal(String word,int row, int col){
-       	int rowLength = data[0].length;
-	if (word.length() > rowLength - col && word.length() > rowLength - (row:ength - col)){
-	    return false;
-	}
-	if (word.length() < rowLength - col && word.length() > 
-	Random rand = new Random();
-	int x = rand.nextInt(1);
-	if (rand.nextInt
-	    
-    }
-	*/
+
     public boolean addWordHorizontal(String word, int row, int col){
 	int rowLength = data[0].length;
-	if (word.length() > rowLength){
+	if (word.length() >= (rowLength - col + 1)){
 	    return false;
 	}
-	if (rowLength - col > word.length()){
-	    int x = col - 1;
-	    for (int i = 0; i < word.length(); i++){
+	int x = col - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[row-1][x] == ' ' || data[row-1][x] == word.charAt(i)){
 		data[row-1][x] = word.charAt(i);
 		x++;
-	    }
+	    }else
+		return false;
 	}
 	return true;
     }
-
+  
     public boolean addWordVertical(String word, int row, int col){
 	int colLength = data.length;
-	if (word.length() > colLength){
+	if (word.length() >= (colLength - row + 1)){
 	    return false;
 	}
-	if (colLength - row > word.length()){
-	    int x = row - 1;
-	    for (int i = 0; i < word.length(); i++){
-		data[x][col-1] = word.charAt(x);
+	int x = row - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[x][col] == ' ' || data[x][col] == word.charAt(i)){
+		data[x][col] = word.charAt(i);
 		x++;
-	    }
+	    }else 
+		return false;
 	}
 	return true;
     }
+
     
     public boolean addWordDiagonal(String word, int row, int col){
-	boolean diagFit = word.length()  
+        int colLength = data[0].length;
+	int rowLength = data.length;
+	if (word.length() >= colLength - row + 1){
+	    return false;
+	}
+	int r = row - 1;
+	int c = col - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[r][c] == ' ' || data[r][c] == word.charAt(i)){
+		    data[r][c] = word.charAt(i);
+		    r++;
+		    c++;
+		}else
+		     return false;
+	}
 	return true;
     }
+		
 
-
-    //vertical + diagonal should be implemented as well.
-
-
-}
+    }
