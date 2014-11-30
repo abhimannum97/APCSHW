@@ -1,0 +1,14 @@
+public class Driver{
+
+    public static void main(String[]args){
+	throws FileNotFoundException {
+	    File text = new Files("words.txt");
+	    Scanner scan = new Scanner(text);
+	    ArrayList<String> WordBank = new ArrayList<String>();
+	    
+
+    }
+    
+
+
+}
