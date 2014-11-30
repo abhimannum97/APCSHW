@@ -83,9 +83,9 @@ public class WordGrid{
      *or there are overlapping letters that do not match, then false is returned.
      */
 
-    public boolean addWordHorizontal(String word, int row, int col){
+    public boolean addWordHorizontalrt(String word, int row, int col){
 	int rowLength = data[0].length;
-	if (word.length() >= (rowLength - col + 1)){
+	if (word.length() > (rowLength - col + 1)){
 	    return false;
 	}
 	int x = col - 1;
@@ -98,10 +98,26 @@ public class WordGrid{
 	}
 	return true;
     }
+
+    public boolean addWordHorizontallt(String word, int row, int col){
+	int rowLength = data[0].length;
+	if (word.length() > rowLength - (rowLength - col)){
+	    return false;
+	}
+	int x = col - 1;
+	for(int i = 0; i < word.length(); i++){
+	    if (data[row-1][x] == ' ' || data[row-1][x] == word.charAt(i)){
+		    data[row-1][x] = word.charAt(i);
+		    x--;
+		}else
+		     return false;
+	}
+	return true;
+    }
   
-    public boolean addWordVertical(String word, int row, int col){
+    public boolean addWordVerticaldn(String word, int row, int col){
 	int colLength = data.length;
-	if (word.length() >= (colLength - row + 1)){
+	if (word.length() > (colLength - row + 1)){
 	    return false;
 	}
 	int x = row - 1;
@@ -114,12 +130,28 @@ public class WordGrid{
 	}
 	return true;
     }
+    
+    public boolean addWordVerticalup(String word, int row, int col){
+	int colLength = data.length;
+	if (word.length() > colLength - (colLength - row)){
+	    return false;
+	}
+	int x = row - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[x][col-1] == ' ' || data[x][col-1] == word.charAt(i)){
+		data[x][col-1] = word.charAt(i);
+		x--;
+	    }else
+		return false;
+	}
+	return true;
+    }
 
     
-    public boolean addWordDiagonal(String word, int row, int col){
+    public boolean addWordDiagonaldnrt(String word, int row, int col){
         int colLength = data[0].length;
 	int rowLength = data.length;
-	if (word.length() >= colLength - row + 1){
+	if (word.length() > colLength - row + 1 && word.length() > rowLength - col + 1 ){
 	    return false;
 	}
 	int r = row - 1;
@@ -134,6 +166,76 @@ public class WordGrid{
 	}
 	return true;
     }
+
+    public boolean addWordDiagonaldnlt(String word, int row, int col){
+	int colLength = data[0].length;
+	int rowLength = data.length;
+	if (word.length() > colLength - row + 1 && word.length() > rowLength - (rowLength - col)){	    
+	    return false;
+	}
+	int r = row - 1;
+	int c = col - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[r][c] == ' ' || data[r][c] == word.charAt(i)){
+		data[r][c] = word.charAt(i);
+		r++;
+		c--;
+	    }else
+		return false;
+	}
+	return true;
+    }
+
+    public boolean addWordDiagonaluprt(String word, int row, int col){
+	int colLength = data[0].length;
+	int rowLength = data.length;
+	if (word.length() > colLength - (colLength - row) && word.length() > (rowLength - col + 1)){	    
+	    return false;
+	}
+	int r = row - 1;
+	int c = col - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[r][c] == ' ' || data[r][c] == word.charAt(i)){
+		data[r][c] = word.charAt(i);
+		r--;
+		c++;
+	    }else 
+		return false;
+	}
+	return true;
+    }
+
+    public boolean addWordDiagonaluplt(String word, int row, int col){
+	int colLength = data[0].length;
+	int rowLength = data.length;
+	if (word.length() > colLength - (colLength - row) && word.length() > rowLength - (rowLength - col)){
+	    return false;
+	}
+		int r = row - 1;
+	int c = col - 1;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[r][c] == ' ' || data[r][c] == word.charAt(i)){
+		data[r][c] = word.charAt(i);
+		r--;
+		c--;
+	    }else
+		return false;
+	}
+	return true;
+    }
+	
+
+
+		    
+		     
+
+
 		
+    
+	
+
+
+    //vertical + diagonal should be implemented as well.
 
     }
+    
