@@ -1,0 +1,121 @@
+public class SuperArray{
+Object[] array;
+int length;
+public SuperArray(){
+length = 10;
+array = new Object[10];
+}
+public SuperArray(int x){
+length = x;
+array = new Object[length];
+}
+public String toString(){
+String ans = "[ ";
+for (int i = 0; i < this.length; i++){
+ans+= array[i] + " ";
+}
+ans += "]";
+return ans;
+}
+public String toString2(){
+String ans = "[ ";
+for (int i = 0; i < this.length; i++){
+if (array[i] != null){
+ans+= array[i] + " ";
+}
+}
+ans += "]";
+return ans;
+}
+public Object get(int index){
+if (index < 0 || index >= this.size()){
+throw new IndexOutOfBoundsException();
+}else
+return array[index];
+}
+public void add(Object e){
+if (array[length-1] != null){
+length += 1;
+resize(length);
+array[length-1] = e;
+}
+else{
+for (int i = 0; i < array.length; i++){
+if (array[i] == null){
+array[i] = e;
+i += length;
+}
+}
+}
+}
+public void add(int index, Object o){
+int x = index;
+int y = 0;
+Object[] newArray = new Object[length];
+if (array[length-1] != null){
+length++;
+newArray = new Object[length];
+newArray[index] = o;
+while (y < index){
+newArray[y] = array[y];
+y++;
+}
+while (x < length-1){
+newArray[x+1] = array[x];
+x++;
+}
+array = newArray;
+}else{
+newArray[index] = o;
+while (y < index){
+newArray[y] = array[y];
+y++;
+}
+while (x < length-1){
+newArray[x+1] = array[x];
+x++;
+}
+array = newArray;
+}
+}
+public Object set(int index, Object o){
+Object x = array[index];
+array[index] = o;
+return x;
+}
+public int size(){
+int ans = 0;
+for (int i = 0; i < this.length; i++){
+ans++;
+}
+return ans;
+}
+public void resize(int newCapacity){
+Object[] newArray = new Object[newCapacity];
+for (int i = 0; i < this.length; i++){
+newArray[i] = this.get(i);
+}
+length = newCapacity;
+array = newArray;
+}
+public void clear(){
+Object[] newArray = new Object[length];
+for (int i = 0; i < this.length; i++){
+newArray[i] = null;
+}
+array = newArray;
+}
+public Object remove(int index){
+if (index >= length || index < 0){
+System.out.println("Index out of range");
+}
+Object x = array[index];
+array[index] = null;
+for (int i = index; i+1 < length; i++){
+array[i] = array[i+1];
+}
+length -= 1;
+resize(length);
+return x;
+}
+}
