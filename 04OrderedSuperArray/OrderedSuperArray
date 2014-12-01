@@ -1,0 +1,10 @@
+public class OrderedSuperArray extends SuperArray{
+
+    public OrderedSuperArray(int len){
+	super(len);
+    }
+
+    public
+
+}
+
