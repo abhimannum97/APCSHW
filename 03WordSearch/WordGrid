@@ -1,8 +1,13 @@
 import java.util.*;
+import java.io.*;
+import java.io.File;
 
 public class WordGrid{
 
     private char[][] data;
+    Random rand = new Random();
+    private ArrayList<String> words = new ArrayList<String>();
+    
 
     /**Initialize the grid to the size specified and fill all of the positions
      *with spaces.
@@ -16,13 +21,14 @@ public class WordGrid{
 	int y = 0;
 	while(x < rows){
 	    while(y < cols){
-		grid[x][y] = ' ';
+		grid[x][y] = '.';
 		y++;
 	    }
 	    y = 0;
 	    x++;
 	}
 	data = grid;
+	//	this.rand = new Random(seed);
     }
 
     public WordGrid(){
@@ -117,7 +123,8 @@ public class WordGrid{
   
     public boolean addWordVerticaldn(String word, int row, int col){
 	int colLength = data.length;
-	if (word.length() > (colLength - row + 1)){
+	if (word.length() > (colLength - row + 1))
+	    {
 	    return false;
 	}
 	int x = row - 1;
@@ -223,19 +230,144 @@ public class WordGrid{
 	}
 	return true;
     }
-	
 
+    public boolean addWord(String word, int startY, int startX, int shiftY, int shiftX){
+	if (!(shiftX == 0 && shiftY == 0)){
+	    if (checkWord(word, startY, startX, shiftY, shiftX)){
+		for (int i = 0; i < word.length(); i++){ 
+		    data[(startY + i * shiftY)-1][(startX + i * shiftX)-1] = word.charAt(i);
+		}
+	    }else
+		return false;
+	}
+	return false;
+    }
+    
+    public boolean checkWord(String word, int startY, int startX, int shiftY){
+	if (fit(word,startY,startX,shiftY,shiftX) && overLap(word,startY,startX,shiftY,shiftX)){
+	    return true;
+	}else
+	    return false;
+    }
+       
+
+    public boolean fit(String word, int startY, int startX, int shiftY, int shiftX){
+	boolean dy = false;
+	boolean dx = false;
+	int rowLength = data.length;
+	int colLength = data[0].length;
+	if (shiftY > 0){
+	    if (word.length() < (colLength - startY + 1)){
+		dy = true;
+	    }	       
+	}
+	if (shiftY < 0){
+	    if (word.length() < colLength - (colLength - startY)){
+		dy = true;
+	    }
+	}
+	if (shiftX > 0){
+	    if (word.length() < (rowLength - startX + 1)){
+		dx = true;
+	    }
+	}
+	if (shiftX < 0){
+	    if (word.length() < rowLength - (rowLength - startX)){
+		dx = true;
+	    }
+	}
+	if (shiftX == 0){
+	    dx = true;
+	}
+	if (shiftY == 0){
+	    dy = true;
+	}
+        return (dy && dx);
+    }
+
+    public boolean overLap(String word, int startY, int startX, int shiftY, int shiftX){
+	int ans = 0;
+	for (int i = 0; i < word.length(); i++){
+	    if (data[(startY + i * shiftY)-1][(startX + i * shiftX)-1] == '.' ||  data[(startY + i * shiftY)-1][(startX + i * shiftX)-1] == word.charAt(i)){
+		ans++;
+	    }
+	}
+	return (ans == word.length());
+    }
+    
+    /*    public  boolean fixFit(String word, int startY, int startX){
+	for(int i = 0; i < word.length(); i++){
+	    for(int y = -1; y <= 1; y++){
+		for(int x = -1; x <= 1; x++){
+		    if (fit(word, startY, startX, y, x)){
+			if (overLap(word,startY,startX,y,x)){
+				addWord(word, startY, startX, y, x);
+				return true;
+			    }
+		    }
+		}
+	    }
+	}
+	return false;
+    }
+    */	
+	
+			
+	
+    public void loadWordsFromFile(String fileName, boolean fillRandomLetters) throws FileNotFoundException{
+	File file = new File(fileName);
+	Scanner scan = new Scanner(file);
+	ArrayList<String> wordBank = new ArrayList<String>();
+	while (scan.hasNext()){
+	    wordBank.add(scan.next());
+	}
+       	int x = 0;
+	while(x < wordBank.length){
+	    int y = 0;
+	    int r1 = rand.nextInt(data.length);
+	    int r2 = rand.nextInt(data[0].length);
+	    int r3 = rand.nextInt(3)-1;
+	    int r4 = rand.nextInt(3)-1;
+	    while (y<23){
+		if (checkWord(wordBank.get(x),r1,r2,r3,r4)){
+		    addWord(wordBank.get(x),r1,r2,r3,r4);
+		    words.add(wordBank.get(x));
+		    y+=23;
+		}
+		y++;
+	    }
+	    x++;
+	}
+	if (fillRandomLetters){
+	    int x = 0;
+	    int y = 0;
+	    while(x<data.length){
+		while(y<data[0].length){
+		    if (data[x][y] == "."){
+			data[x][y] = (char)(rand.nextInt(26) + 97);
+		    }
+		    y++;
+		}
+		x++;
+	    }
+	}
+    }
 
 		    
-		     
-
-
 		
+		
+	/*
+	randomAddList(wordList);
+       	if (fillRandomLetters){
+	    fillRandomLetters();
+       	}
+	*/
+    }
+
+   
+
     
-	
 
-
-    //vertical + diagonal should be implemented as well.
 
     }
     
