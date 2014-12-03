@@ -8,18 +8,27 @@ public class OrderedSuperArray extends SuperArray{
 	this(10);
     }
 
-    public void add(String element){
-	for(int i = 0; i < this.length; i++){
-	    if (this.get(index).compareTo(element) < 0){
-		this.add(index-1, element);
-		i += length;
-	    }
+    public void add(String o){
+	int index = size();
+	while (index > 0 && get(index-1).compareTo(o) > 0){
+	    index--;
 	}
+	super.add(index, o);
+    }
+
+    public void add(int index, String o){
+	add(o);
     }
 		
-    public void set(int index, String element){
-	this.remove(index);
-	this.add(element);
-    }
+    // public void set(int index, String element){
+
+    /*
+    public void insertionSort(){
+	int x = 0;
+	while(x < size()){
+	    if (super.array[0].compareTo(super.array[1]) < 0){
+		
+    */		
+		    
 
 }
