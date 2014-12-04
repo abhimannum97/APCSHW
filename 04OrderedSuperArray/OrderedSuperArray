@@ -20,15 +20,35 @@ public class OrderedSuperArray extends SuperArray{
 	add(o);
     }
 		
-    // public void set(int index, String element){
-
-    /*
+    public void set(int index, String o){
+	String old = array[index];
+	if(size() == 0){
+	    throw new IndexOutOfBoundsException("" + index);
+	}
+	if(o.compareTo(array[index]) > 0){
+	    while(index < size() - 1 && o.compareTo(get(index + 1)) > 0){
+		array[index] = array[index+1];
+		index++;
+	    }
+	}else if (o.compareTo(array[index]) < 0){
+	    while(index > 0 && o.compareTo(get(index-1)) < 0){
+		array[index] = array[index-1];
+		index--;
+	    }
+	}
+	array[index] = o;
+    }
+    
     public void insertionSort(){
 	int x = 0;
-	while(x < size()){
-	    if (super.array[0].compareTo(super.array[1]) < 0){
+	while(x<size()){
+	    this.add(this.remove(x));
+	}
+    }
+    }
 		
-    */		
+		
+		
 		    
 
 }
