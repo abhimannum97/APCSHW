@@ -79,10 +79,10 @@ public class SuperArray{
 	    array = newArray;
 	}
     }
-    public String set(int index, String o){
+    public void set(int index, String o){
 	String x = array[index];
 	array[index] = o;
-	return x;
+	
     }
     public int size(){
 	int ans = 0;
