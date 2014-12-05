@@ -1,14 +1,61 @@
+import java.util.*;
+import java.io.*;
+import java.io.File;
+
 public class Driver{
 
-    public static void main(String[]args){
-	throws FileNotFoundException {
-	    File text = new Files("words.txt");
-	    Scanner scan = new Scanner(text);
-	    ArrayList<String> WordBank = new ArrayList<String>();
+    public static void main(String[]args)throws FileNotFoundException{
+	/*
+	File text = new Files("words.txt");
+	Scanner scan = new Scanner(text);
+	ArrayList<String> WordBank = new ArrayList<String>();
+
+	
+	WordGrid hank = new WordGrid(20,20);
+	
+
+	System.out.println(hank.fit("hello", 6, 5, 0, 1));
+	System.out.println(hank.toString());
+	hank.addWord("hello",5,5,1,1);
+	System.out.println(hank.addWord("yelp",5, 6, 1, 0));
+	System.out.println(hank.toString());
+
+	
+	System.out.println(hank.toString());
+	
+	hank.loadWordsFromFile("words.txt", true);
+	System.out.println(hank.toString());
+	System.out.println(hank.wordInPuzzle());
+	*/
+	try{
+	    WordGrid a = new WordGrid(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+	   
+	    if (args.length >= 3){
+		a.setSeed(Integer.parseInt(args[2]));
+		try{
+		    a.loadWordsFromFile("words.txt", !args[3].equals("1"));
 	    
-
-    }
+		}catch(FileNotFoundException x){
+		}
+	    }else{
+		try{
+		    a.loadWordsFromFile("wordlist.txt", true);
+		}catch (FileNotFoundException x){
+		}
+	    }
+	    
+	
+	
+	System.out.println("Find: \n");
+	System.out.println(a.wordInPuzzle());
+	System.out.println(a.toString());
+	}catch(ArrayIndexOutOfBoundsException e){
+	    System.out.println("Incorrect input. Input this: \n java Driver row col randomSeed (either 0 = word search or 1 = answers");
+	}
+	
+	
     
-
+    
+    }
 
 }
