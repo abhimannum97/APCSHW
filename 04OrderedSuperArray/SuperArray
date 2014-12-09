@@ -1,12 +1,12 @@
-public class SuperArray{
+public class SuperArray2{
     String[] array;
     int length;
     
-    public SuperArray(){
+    public SuperArray2(){
 	length = 10;
 	array = new String[10];
     }
-    public SuperArray(int x){
+    public SuperArray2(int x){
 	length = x;
 	array = new String[length];
     }
@@ -95,7 +95,7 @@ public class SuperArray{
     }
     public void resize(int newCapacity){
 	String[] newArray = new String[newCapacity];
-	for (int i = 0; i < this.length; i++){
+	for (int i = 0; i < size() && i < newCapacity; i++){
 	    newArray[i] = this.get(i);
 	}
 	length = newCapacity;
