@@ -1,7 +1,4 @@
-package com.arsenyko.algs;
 import java.util.*;
-import java.util.Arrays;
-import java.util.LinkedList;
 public class Sorts{
 
      public static String name(){
@@ -21,7 +18,7 @@ public class Sorts{
 	}
 	
 	System.out.print(Arrays.toString(x));
-        Sorts.radix(x);
+        Sorts.insertion(x);
 	System.out.println(Arrays.toString(x));
 
     }
@@ -51,45 +48,30 @@ public class Sorts{
 	}
     }
 
-
-    public static void radix(int[] array) {
-	ArrayList<ArrayList<Integer>> counter = new ArrayList<ArrayList<Integer>>();
-	for (int r = 0; r < 10; r++){
-	    counter.add(new ArrayList<Integer>());
-	}
-	int max = array[0];
-	for (int i = 0; i < array.length; i++){
-	    if (array[i] > max){
-		max = array[i];
-	    }
-	}
+    public static void radix() {
 	int mod = 10;
         int dev = 1;
-	int returns;
-        for (int i = 0; i < max; i++, dev *= 10, mod *= 10) {
+        for (int i = 0; i < maxDigitSymbols; i++, dev *= 10, mod *= 10) {
             //System.out.println(Arrays.toString(array));
             for(int j = 0; j < array.length; j++) {
                 int bucket = (array[j] % mod) / dev;
-                counter.get(bucket).add(array[j]);
+                counter[bucket].add(array[j]);
             }
-	    int pos = 0;
-            for(int j = 0; j < counter.size(); j++) {
+            int pos = 0;
+            for(int j = 0; j < counter.length; j++) {
                 Integer value = null;
-                while ((value = counter.get(j).poll()) != null) {
+                while ((value = counter[j].poll()) != null) {
                     //System.out.println(value);
                     array[pos++] = value;
                 }
             }
         }
     }
-
-
-}
 			     
 
 	    
 	    
-
+}
 	    
 	
 
